@@ -33,15 +33,17 @@
       <ion-button expand="block" style="--background: #D678F1;" routerLink="/home" (click)="mostrarAlerta()">Ingresar</ion-button>
 
       <ion-card-content>
-         No tienes una cuenta?    
-         <a routerLink="/paginas/register">Crear Cuenta </a>
+        <div class="content-wrapper">
+          <span>No tienes una cuenta?</span> 
+          <ion-button routerLink="/register" style="color: var(--ion-color-primary); --background: white;" >Crear Cuenta </ion-button>
+        </div>
       </ion-card-content>
 
     </ion-card>
 
   </ion-content>
 
-  <ion-footer style="height: 200px; background-color: #D678F1;">
+  <ion-footer style="height: 150px; background-color: #D678F1;">
   
   </ion-footer>
 

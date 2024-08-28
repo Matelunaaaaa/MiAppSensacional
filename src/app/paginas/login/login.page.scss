@@ -6,3 +6,10 @@ ion-title{
     --background: white;
     --color: #000000;
   }
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+
