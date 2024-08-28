@@ -1,0 +1,48 @@
+<ion-app>
+  <ion-header>
+    
+  </ion-header>
+
+  <ion-content style="--background: black;" >
+
+    <ion-card style="margin-top: 20%; text-align: center; background-color: black; height: 300px;">
+
+      <img src="assets/Logo.webp" alt="Logo" />
+
+      <ion-card-header>
+
+        <ion-card-title style="color: #D678F1;">TranslateBKX</ion-card-title>
+        <ion-card-subtitle style="color: #D678F1;">App de traduccion</ion-card-subtitle>
+
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+
+        <ion-input type="text" label="" [(ngModel)]="Usuario" name="Usuario" placeholder="Usuario"></ion-input>
+      
+      </ion-item>
+
+      <ion-item>
+
+        <ion-input type="text" label="" [(ngModel)]="Contrasenna" name="Contrasenna" placeholder="Contraseña"></ion-input>
+
+      </ion-item>
+
+      <ion-button expand="block" style="--background: #D678F1;" routerLink="/home" (click)="mostrarAlerta()">Ingresar</ion-button>
+
+      <ion-card-content>
+         No tienes una cuenta?    
+         <a routerLink="/paginas/register">Crear Cuenta </a>
+      </ion-card-content>
+
+    </ion-card>
+
+  </ion-content>
+
+  <ion-footer style="height: 200px; background-color: #D678F1;">
+  
+  </ion-footer>
+
+</ion-app> 
