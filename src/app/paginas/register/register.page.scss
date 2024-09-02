@@ -1,0 +1,14 @@
+ion-title{
+    font-size: 50px;
+  }
+  
+  ion-card {
+    --background: white;
+    --color: #000000;
+  }
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
