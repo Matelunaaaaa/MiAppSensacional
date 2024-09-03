@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./paginas/register/register.module').then( m => m.RegisterPageModule)
+  },  {
+    path: 'animaciones',
+    loadChildren: () => import('./paginas/animaciones/animaciones.module').then( m => m.AnimacionesPageModule)
   },
+
 
 ];
 
