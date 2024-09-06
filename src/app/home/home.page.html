@@ -1,19 +1,30 @@
 <ion-app>
 
-  <ion-header>
+    <ion-header>
+      <ion-menu contentId="main-content">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Menu Content</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">This is the menu content.</ion-content>
+      </ion-menu>
+      <div class="ion-page" id="main-content">
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <ion-title style="color: #D678F1;">TranslateBKX</ion-title>
+          </ion-toolbar>
+        </ion-header>
+      </div>
+    </ion-header>
 
-    <ion-card-header>
-
-      <ion-card-title style="color: #D678F1;">TranslateBKX</ion-card-title>
-      <ion-card-subtitle style="color: #D678F1;">App de traduccion</ion-card-subtitle>
-
-    </ion-card-header>
-    
-  </ion-header>
 
   <ion-content>
 
-    <ion-card>
+    <ion-card style="margin-top: 100px;">
 
       <ion-item>
         <ion-textarea 
@@ -29,10 +40,6 @@
   </ion-content>
 
   <ion-footer>
-    
-    <ion-text>
-      adios
-    </ion-text>
 
   </ion-footer>
 
