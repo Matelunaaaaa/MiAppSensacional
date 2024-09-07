@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,30 +9,25 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   Usuario: string = "";
   Contrasenna: string = "";
+  isUsuarioError: boolean = false;
+  isContrasennaError: boolean = false;
 
-  constructor(public alerta: AlertController, private router: Router) {}
+  constructor(private router: Router) {}
 
-  async presentAlert(titulo: string, message: string) {
-    const alert = await this.alerta.create({
-      header: titulo,
-      message: message,
-      buttons: ["OK"]
-    });
-    await alert.present();
+  checkInput() { //aqui se ve si los campos estan vacios
+    this.isUsuarioError = this.Usuario.trim() === '';
+    this.isContrasennaError = this.Contrasenna.trim() === '';
   }
 
-  async mostrarAlerta() {
-    if (this.Usuario === "" || this.Contrasenna === "") {
-      await this.presentAlert("Advertencia", "Los campos no pueden estar vacíos");
-    } else {
+  mostrarAlerta() {
+    this.checkInput();
+    if (!this.isUsuarioError && !this.isContrasennaError) {
       this.redirigir();
     }
   }
-
   redirigir() {
     this.router.navigate(['home']);
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

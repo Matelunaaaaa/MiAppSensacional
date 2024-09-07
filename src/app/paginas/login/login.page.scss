@@ -13,3 +13,23 @@ ion-title{
   justify-content: space-between; 
 }
 
+.body-background {
+  background: linear-gradient(270deg, #000000, #D678F1, #D678F1);
+  background-size: 400% 400%;
+  animation: gradientMove 5s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.error-item {
+  border: 3px solid red;
+}
+.success-item {
+  border: 3px solid green;
+}
+
+
