@@ -12,3 +12,11 @@ ion-title{
   align-items: center;
   justify-content: space-between; 
 }
+
+.error-item {
+  border: 3px solid red;
+}
+
+.success-item {
+  border: 3px solid green;
+}

@@ -9,22 +9,32 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   Usuario: string = "";
   Contrasenna: string = "";
+  
   isUsuarioError: boolean = false;
   isContrasennaError: boolean = false;
+  
+  isUsuarioSuccess: boolean = false;
+  isContrasennaSuccess: boolean = false;
 
   constructor(private router: Router) {}
 
-  checkInput() { //aqui se ve si los campos estan vacios
+  /*se ve que los campos no esten vacios*/
+  checkInput() {
     this.isUsuarioError = this.Usuario.trim() === '';
+    this.isUsuarioSuccess = !this.isUsuarioError;
+    
     this.isContrasennaError = this.Contrasenna.trim() === '';
+    this.isContrasennaSuccess = !this.isContrasennaError;
   }
 
+  /*funciona al oresionarlos*/
   mostrarAlerta() {
     this.checkInput();
-    if (!this.isUsuarioError && !this.isContrasennaError) {
+    if (this.isUsuarioSuccess && this.isContrasennaSuccess) {
       this.redirigir();
     }
   }
+
   redirigir() {
     this.router.navigate(['home']);
   }

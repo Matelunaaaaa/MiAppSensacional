@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,33 +6,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  Gmail: string = "";
   Usuario: string = "";
   Contrasenna: string = "";
-  Gmail: string = "";
-  
-  constructor(public alerta: AlertController, private router: Router) {}
+  isGmailError: boolean = false;
+  isUsuarioError: boolean = false;
+  isContrasennaError: boolean = false;
+  isGmailSuccess: boolean = false;
+  isUsuarioSuccess: boolean = false;
+  isContrasennaSuccess: boolean = false;
 
-  async presentAlert(titulo: string, message: string) {
-    const alert = await this.alerta.create({
-      header: titulo,
-      message: message,
-      buttons: ["OK"]
-    });
-    await alert.present();
+  constructor() {}
+
+  /* aqui se ve si los campos estan vacios*/
+  checkInput() {
+    this.isGmailError = this.Gmail.trim() === '';
+    this.isGmailSuccess = !this.isGmailError;
+    this.isUsuarioError = this.Usuario.trim() === '';
+    this.isUsuarioSuccess = !this.isUsuarioError;
+    this.isContrasennaError = this.Contrasenna.trim() === '';
+    this.isContrasennaSuccess = !this.isContrasennaError;
   }
 
-  async mostrarAlerta() {
-    if (this.Usuario === "" || this.Contrasenna === "" || this.Gmail == "") {
-      await this.presentAlert("Advertencia", "Los campos no pueden estar vacíos");
-    } else {
-      this.redirigir();
-    }
+  /*con esto hace que los colores se pongan al presionar el boton*/
+  mostrarAlerta() {
+    this.checkInput();
   }
 
-  redirigir() {
-    this.router.navigate(['login']);
-  }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

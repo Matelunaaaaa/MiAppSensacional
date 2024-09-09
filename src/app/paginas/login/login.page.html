@@ -1,31 +1,25 @@
 <ion-app>
   <ion-header></ion-header>
 
-  <ion-content class="body-background" style="--background: transparent;">
+  <ion-content style="--background: black;">
+    <ion-card-header style="margin-top: 30px;">
+      <ion-card-title style="color: #D678F1;">TranslateBKX</ion-card-title>
+      <ion-card-subtitle style="color: #D678F1;">App de traducción</ion-card-subtitle>
+    </ion-card-header>
 
-    <ion-card style="margin-top: 10%; text-align: center; background-color: black; height: 300px;">
-      <img src="assets/Logo.webp" alt="Logo" />
-      <ion-card-header>
-        <ion-card-title style="color: #D678F1;">TranslateBKX</ion-card-title>
-        <ion-card-subtitle style="color: #D678F1;">App de traducción</ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
-
-    <ion-card>
+    <ion-card style="margin-top: 30%;">
       <ion-card-title style="margin-bottom: 20px; text-align: center; color: #D678F1;">
-        Iniciar sesión
+        Iniciar Sesión
       </ion-card-title>
 
-      <ion-item [ngClass]="{'error-item': isUsuarioError, 'success-item': !isUsuarioError}">
+      <ion-item [ngClass]="{'error-item': isUsuarioError, 'success-item': isUsuarioSuccess}">
         <ion-icon name="person" slot="start" style="color: black;"></ion-icon>
-        <ion-input [(ngModel)]="Usuario" (ngModelChange)="checkInput()" type="text" placeholder="Usuario"></ion-input>
+        <ion-input style="color: black;" type="text" [(ngModel)]="Usuario" (ngModelChange)="checkInput()" placeholder="Usuario"></ion-input>
       </ion-item>
 
-      <br>
-
-      <ion-item [ngClass]="{'error-item': isContrasennaError, 'success-item': !isContrasennaError}">
+      <ion-item [ngClass]="{'error-item': isContrasennaError, 'success-item': isContrasennaSuccess}">
         <ion-icon name="lock-closed" slot="start" style="color: black;"></ion-icon>
-        <ion-input [(ngModel)]="Contrasenna" (ngModelChange)="checkInput()" type="password" placeholder="Contraseña"></ion-input>
+        <ion-input style="color: black;" type="password" [(ngModel)]="Contrasenna" (ngModelChange)="checkInput()" placeholder="Contraseña"></ion-input>
       </ion-item>
 
       <ion-button expand="block" style="--background: #D678F1;" (click)="mostrarAlerta()">Ingresar</ion-button>
@@ -37,9 +31,7 @@
         </div>
       </ion-card-content>
     </ion-card>
-
   </ion-content>
 
   <ion-footer style="height: 120px; background-color: #D678F1;"></ion-footer>
-
 </ion-app>
