@@ -2,30 +2,34 @@
   <ion-header></ion-header>
 
   <ion-content style="--background: black;">
-    <ion-card-header style="margin-top: 30px;">
+    <ion-card-header style="margin-top: 30px; text-align: center;">
+
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <img src="assets/Logo.webp" alt="Logo" style="width: 150px; height: 150px;" />
+      </div>
       <ion-card-title style="color: #D678F1;">TranslateBKX</ion-card-title>
       <ion-card-subtitle style="color: #D678F1;">App de traducción</ion-card-subtitle>
-    </ion-card-header>
+      </ion-card-header>
 
     <ion-card style="margin-top: 30%;">
       <ion-card-title style="margin-bottom: 20px; text-align: center; color: #D678F1;">
-        Iniciar Sesión
+        Iniciar sesión
       </ion-card-title>
 
-      <ion-item [ngClass]="{'error-item': isUsuarioError, 'success-item': isUsuarioSuccess}">
+      <ion-item [ngClass]="{'input-error': isUsuarioError, 'input-success': !isUsuarioError && Usuario.trim() !== ''}" style="--background: white;">
         <ion-icon name="person" slot="start" style="color: black;"></ion-icon>
-        <ion-input style="color: black;" type="text" [(ngModel)]="Usuario" (ngModelChange)="checkInput()" placeholder="Usuario"></ion-input>
+        <ion-input style="color: black;" type="text" [(ngModel)]="Usuario" placeholder="Usuario"></ion-input>
       </ion-item>
 
-      <ion-item [ngClass]="{'error-item': isContrasennaError, 'success-item': isContrasennaSuccess}">
+      <ion-item [ngClass]="{'input-error': isContrasennaError, 'input-success': !isContrasennaError && Contrasenna.trim() !== ''}" style="--background: white;">
         <ion-icon name="lock-closed" slot="start" style="color: black;"></ion-icon>
-        <ion-input style="color: black;" type="password" [(ngModel)]="Contrasenna" (ngModelChange)="checkInput()" placeholder="Contraseña"></ion-input>
+        <ion-input style="color: black;" type="password" [(ngModel)]="Contrasenna" placeholder="Contraseña"></ion-input>
       </ion-item>
 
       <ion-button expand="block" style="--background: #D678F1;" (click)="mostrarAlerta()">Ingresar</ion-button>
 
       <ion-card-content>
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="text-align: center;">
           <span>No tienes una cuenta?</span>
           <ion-button routerLink="/register" style="color: var(--ion-color-primary); --background: white;">Crear Cuenta</ion-button>
         </div>

@@ -27,7 +27,7 @@ export class LoginPage implements OnInit {
     this.isContrasennaSuccess = !this.isContrasennaError;
   }
 
-  /*funciona al oresionarlos*/
+  /*funciona al presionarlos*/
   mostrarAlerta() {
     this.checkInput();
     if (this.isUsuarioSuccess && this.isContrasennaSuccess) {
