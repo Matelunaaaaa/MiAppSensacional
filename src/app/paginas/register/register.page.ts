@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class RegisterPage implements OnInit {
   isUsuarioSuccess: boolean = false;
   isContrasennaSuccess: boolean = false;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   /* aqui se ve si los campos estan vacios*/
   checkInput() {
@@ -31,6 +32,13 @@ export class RegisterPage implements OnInit {
   /*con esto hace que los colores se pongan al presionar el boton*/
   mostrarAlerta() {
     this.checkInput();
+    if (this.isUsuarioSuccess && this.isContrasennaSuccess && this.isGmailSuccess) {
+      this.redirigir();
+    }
+  }
+
+  redirigir() {
+    this.router.navigate(['login']);
   }
 
   ngOnInit() {}
