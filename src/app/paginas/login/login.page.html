@@ -16,12 +16,12 @@
         Iniciar sesión
       </ion-card-title>
 
-      <ion-item [ngClass]="{'input-error': isUsuarioError, 'input-success': !isUsuarioError && Usuario.trim() !== ''}" style="--background: white;">
+      <ion-item [ngClass]="{'error-item': isUsuarioError, 'success-item': !isUsuarioError && Usuario.trim() !== ''}" style="--background: white;">
         <ion-icon name="person" slot="start" style="color: black;"></ion-icon>
         <ion-input style="color: black;" type="text" [(ngModel)]="Usuario" placeholder="Usuario"></ion-input>
       </ion-item>
 
-      <ion-item [ngClass]="{'input-error': isContrasennaError, 'input-success': !isContrasennaError && Contrasenna.trim() !== ''}" style="--background: white;">
+      <ion-item [ngClass]="{'error-item': isContrasennaError, 'success-item': !isContrasennaError && Contrasenna.trim() !== ''}" style="--background: white;">
         <ion-icon name="lock-closed" slot="start" style="color: black;"></ion-icon>
         <ion-input style="color: black;" type="password" [(ngModel)]="Contrasenna" placeholder="Contraseña"></ion-input>
       </ion-item>
