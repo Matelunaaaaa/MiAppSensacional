@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { InformacionusuarioService } from 'src/app/servicios/informacionusuario.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginPage implements OnInit {
   isUsuarioSuccess: boolean = false;
   isContrasennaSuccess: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private InformacionusuarioService: InformacionusuarioService) {}
 
   /*se ve que los campos no esten vacios*/
   checkInput() {
@@ -31,6 +32,7 @@ export class LoginPage implements OnInit {
   mostrarAlerta() {
     this.checkInput();
     if (this.isUsuarioSuccess && this.isContrasennaSuccess) {
+      this.InformacionusuarioService.setUsername(this.Usuario);
       this.redirigir();
     }
   }
