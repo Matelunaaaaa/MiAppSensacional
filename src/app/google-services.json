@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "249122184741",
+    "project_id": "miappsensacional",
+    "storage_bucket": "miappsensacional.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249122184741:android:e28764c26ffcfa0a02e9cc",
+        "android_client_info": {
+          "package_name": "com.company.appsensacional123"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ8XsrVaAu-k8mQ9DU91eCDZHQY3U5xl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
