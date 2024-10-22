@@ -13,6 +13,7 @@ import { Storage } from '@ionic/storage-angular';
 export class LoginPage implements OnInit {
   Usuario: string = "";
   Contrasenna: string = "";
+  private _storage: Storage | null = null;
   
   isUsuarioError: boolean = false;
   isContrasennaError: boolean = false;
@@ -22,6 +23,11 @@ export class LoginPage implements OnInit {
 
   constructor(public mensaje:ToastController, public alert:AlertController, private router: Router, private storage: Storage, private InformacionusuarioService: InformacionusuarioService, private acces:FirebaseLoginService) {}
 
+
+  async ngOnInit() {
+    this._storage = await this.storage.create();
+  }
+  
   async MensajeError(){
     const alert = await this.alert.create({
       header : 'Error de inicio de sesion',
@@ -64,7 +70,8 @@ export class LoginPage implements OnInit {
     this.router.navigate(['home']);
   }
 
-  async ngOnInit() {
-    await this.storage.create();
+  async guardarUsuario(usuario: string) {
+    await this._storage?.set('usuario', usuario);
   }
 }
+
