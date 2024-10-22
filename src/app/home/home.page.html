@@ -26,8 +26,7 @@
     <!-- Contenido de la página -->
     <ion-content>
 
-      <ion-card style="margin-top: 100px;">
-
+      <ion-card class="translate-card">
         <ion-item>
           <ion-label position="floating">Texto a traducir</ion-label>
           <ion-input [(ngModel)]="inputText"></ion-input>
@@ -40,15 +39,12 @@
             <ion-select-option value="es">Español</ion-select-option>
             <ion-select-option value="fr">Francés</ion-select-option>
             <ion-select-option value="de">Alemán</ion-select-option>
-            <!-- Agrega más idiomas si lo deseas -->
           </ion-select>
         </ion-item>
-        
 
         <ion-button expand="block" (click)="translate(inputText, targetLang)">
           Traducir
         </ion-button>
-
       </ion-card>
 
       <!-- Mostrar traducción si existe -->

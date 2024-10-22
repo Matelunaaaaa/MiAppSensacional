@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslationService } from '../servicios/translation.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,20 +10,23 @@ import { TranslationService } from '../servicios/translation.service';
 export class HomePage {
 
   inputText: string = '';
-  targetLang: string = 'es';  // Código de idioma para español
+  targetLang: string = 'auto'; 
   translatedText: string = '';
 
   constructor(private translationService: TranslationService) {}
 
-  translate(text: string, targetLang: string) {
-    this.translationService.translateText(text, targetLang).subscribe(
-      (response) => {
-        this.translatedText = response.translatedText;
-      },
-      (error) => {
-        console.error('Error al traducir:', error);
-        alert('Error al traducir: ' + error.message); // Para mostrar el error al usuario
-      }
-    );
+  async translate(text: string, targetLang: string) {
+    if (!text.trim()) {
+      console.error('El texto no puede estar vacío');
+      return;
+    }
+
+    try {
+      const response = await firstValueFrom(this.translationService.translateText(text, targetLang));
+      this.translatedText = response.translatedText;
+    } catch (error) {
+      console.error('Error al traducir:', error);
+      alert('Error al traducir: ' + error);
+    }
   }
 }
