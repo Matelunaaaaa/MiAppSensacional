@@ -7,20 +7,21 @@ import { TranslationService } from '../servicios/translation.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  translatedText: string = '';
+
   inputText: string = '';
-  targetLang: string = 'ES';
-  translateText: string = '';
+  targetLang: string = 'es';  // Código de idioma para español
+  translatedText: string = '';
 
   constructor(private translationService: TranslationService) {}
 
   translate(text: string, targetLang: string) {
     this.translationService.translateText(text, targetLang).subscribe(
       (response) => {
-        this.translatedText = response.translations[0].text;
+        this.translatedText = response.translatedText;
       },
       (error) => {
         console.error('Error al traducir:', error);
+        alert('Error al traducir: ' + error.message); // Para mostrar el error al usuario
       }
     );
   }
