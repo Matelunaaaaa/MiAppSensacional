@@ -16,11 +16,11 @@ export class HomePage {
   constructor(private translationService: TranslationService) {}
 
   async translate(text: string, targetLang: string) {
-    if (!text.trim()) {
-      console.error('El texto no puede estar vacío');
+    if (!text || text.trim() === '') {
+      alert('Por favor, ingrese un texto para traducir.');
       return;
     }
-
+  
     try {
       const response = await firstValueFrom(this.translationService.translateText(text, targetLang));
       this.translatedText = response.translatedText;

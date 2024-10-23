@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,10 @@ export class TranslationService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.post<any>(this.apiUrl, body, { headers });
+    return this.http.post<any>(this.apiUrl, body, { headers }).pipe(
+      tap(response => {
+        console.log('Respuesta de la API:', response); // Imprimir la respuesta aquí
+      })
+    );
   }
 }
