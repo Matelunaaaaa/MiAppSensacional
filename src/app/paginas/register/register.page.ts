@@ -63,11 +63,12 @@ export class RegisterPage implements OnInit {
   async crearUsuario() {
     try {
       await this.acsses.create_user(this.Gmail, this.Contrasenna, this.Usuario);
-      await this.presentAlert('Éxito', 'Usuario creado con éxito.');
+      console.log("Usuario creado exitosamente");
+      this.presentAlert('Éxito', 'Usuario creado con éxito.');
       this.redirigir();
     } catch (error) {
-      console.error("Error al crear el usuario:", error);
-      await this.presentAlert('Error', 'Hubo un problema al crear la cuenta. Inténtalo de nuevo más tarde.');
+      console.log("Error al crear el usuario");
+      this.presentAlert('Error', 'Hubo un problema al crear la cuenta. Inténtalo de nuevo más tarde.');
     }
   }
 
