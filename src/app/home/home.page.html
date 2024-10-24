@@ -42,11 +42,15 @@
         </ion-select>
       </ion-item>
 
-        <!-- Botón para traducir y guardar en el historial -->
-        <ion-button expand="block" (click)="translate(inputText, targetLang)">
-          Traducir
-        </ion-button>
-      </ion-card>
+      <ion-button expand="block" (click)="translate(inputText, targetLang)">
+        Traducir
+      </ion-button>
+    </ion-card>
+  
+    <!-- Botón para ver el historial en otra página -->
+    <ion-button expand="block" (click)="navigateToHistorial()">
+      Ver Historial
+    </ion-button>
 
       <!-- Mostrar traducción si existe -->
       <ion-card *ngIf="translatedText">
@@ -58,19 +62,6 @@
         </ion-card-content>
       </ion-card>
 
-      <!-- Historial de textos ingresados -->
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Historial</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list>
-            <ion-item *ngFor="let text of translationHistory">
-              {{ text }}
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
     </ion-content>
   </div>
 </ion-app>

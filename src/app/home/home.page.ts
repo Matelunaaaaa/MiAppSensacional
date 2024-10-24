@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router'; // Importar Router para la navegación
 import { TranslationService } from '../servicios/translation.service';
 import { firstValueFrom } from 'rxjs';
 
@@ -8,25 +9,28 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  inputText: string = ''; // Para capturar el texto del usuario
-  targetLang: string = 'auto'; // Idioma de destino para la traducción
-  translatedText: string = ''; // Texto traducido
-  translationHistory: string[] = []; // Historial de los textos ingresados
+  inputText: string = '';
+  targetLang: string = 'auto';
+  translatedText: string = '';
+  translationHistory: string[] = []; // Historial de textos ingresados
 
-  constructor(private translationService: TranslationService) {}
+  constructor(private translationService: TranslationService, private router: Router) {
+    this.loadHistory(); // Cargar el historial al iniciar
+  }
 
+  // Método para traducir el texto
   async translate(text: string, targetLang: string) {
     if (!text || text.trim() === '') {
       alert('Por favor, ingrese un texto para traducir.');
       return;
     }
 
-    // Guardar el texto ingresado en el historial antes de traducir
-    this.saveToHistory(text);
-
     try {
       const response = await firstValueFrom(this.translationService.translateText(text, targetLang));
       this.translatedText = response.translatedText;
+
+      // Guardar el texto en el historial
+      this.saveToHistory(text);
     } catch (error) {
       console.error('Error al traducir:', error);
       alert('Error al traducir: ' + error);
@@ -36,8 +40,21 @@ export class HomePage {
   // Método para guardar el texto ingresado en el historial
   saveToHistory(text: string) {
     if (text.trim()) {
-      this.translationHistory.push(text); // Guarda el texto en el historial
-      console.log('Historial actualizado:', this.translationHistory); // Para verificar que se guarda correctamente
+      this.translationHistory.push(text);
+      localStorage.setItem('translationHistory', JSON.stringify(this.translationHistory)); // Guardar en localStorage
     }
+  }
+
+  // Cargar el historial guardado desde localStorage
+  loadHistory() {
+    const storedHistory = localStorage.getItem('translationHistory');
+    if (storedHistory) {
+      this.translationHistory = JSON.parse(storedHistory);
+    }
+  }
+
+  // Método para navegar a la página del historial
+  navigateToHistorial() {
+    this.router.navigate(['/historial']);
   }
 }
