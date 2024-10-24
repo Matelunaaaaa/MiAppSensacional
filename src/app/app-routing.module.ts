@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'perfil',
     loadChildren: () => import('./paginas/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
+  {
+    path: 'historial',
+    loadChildren: () => import('./paginas/historial/historial.module').then( m => m.HistorialPageModule)
+  },
 
 
 
