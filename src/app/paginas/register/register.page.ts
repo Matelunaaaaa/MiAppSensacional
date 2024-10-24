@@ -50,8 +50,8 @@ export class RegisterPage implements OnInit {
 
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({
-      header,
-      message,
+      header: header,
+      message: message,
       buttons: ['Aceptar'],
     });
 
@@ -64,7 +64,7 @@ export class RegisterPage implements OnInit {
     try {
       await this.acsses.create_user(this.Gmail, this.Contrasenna, this.Usuario);
       console.log("Usuario creado exitosamente");
-      this.presentAlert('Éxito', 'Usuario creado con éxito.');
+      this.MensajeCorrecto();
       this.redirigir();
     } catch (error) {
       console.log("Error al crear el usuario");
@@ -75,4 +75,18 @@ export class RegisterPage implements OnInit {
   redirigir() {
     this.router.navigate(['login']);
   }
+
+  async MensajeCorrecto() {
+    const alert = await this.alertController.create({
+      header: '¡ÉXITO!',
+      subHeader: 'Registro Exitoso',
+      message: 'Puedes Iniciar Sesión :-D',
+      buttons: [{
+        text: 'Dirigeme Allí',
+        handler: () => {
+          this.router.navigate(['/login']);  // Redirige a la página de login
+        }}]
+    });
+    await alert.present();
+    }
 }

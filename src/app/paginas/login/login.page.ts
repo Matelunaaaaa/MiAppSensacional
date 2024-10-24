@@ -33,13 +33,14 @@ export class LoginPage implements OnInit {
     this._storage = await this.storage.create();
   }
   
-  async MensajeError(){
+  async MensajeError(mensajeError: string){
     const alert = await this.alert.create({
       header : 'Error de inicio de sesion',
       subHeader: 'Contraseña o Usuario incorrecto',
-      message: 'Error al iniciar sesion en la cuenta',
+      message: mensajeError,
       buttons: ['Aceptar']
-    })
+    });
+    await alert.present();
   }
 
   /*se ve que los campos no esten vacios*/
@@ -56,7 +57,7 @@ export class LoginPage implements OnInit {
       this.checkInput();
       if (this.Usuario === "" && this.Contrasenna === "") {
         console.log("No puede dejar ni el usuario ni la contraseña sin completar")
-        this.MensajeError()
+        this.MensajeError("Nombre o Contraseña erronea")
       }
       else{
         this.acces.login(this.Usuario,this.Contrasenna).then(()=>{
@@ -65,8 +66,8 @@ export class LoginPage implements OnInit {
           console.log("inicio de sesion exitoso ")
           this.InformacionusuarioService.setUsername(this.Usuario);
           this.redirigir();
-    }).catch(()=>{
-      this.MensajeError()
+    }).catch((error)=>{
+      this.MensajeError(this.traducirMensajeError(error));
     })
   }
 }
@@ -77,6 +78,23 @@ export class LoginPage implements OnInit {
 
   async guardarUsuario(usuario: string) {
     await this._storage?.set('usuario', usuario);
+  }
+
+
+
+  traducirMensajeError(error: any): string {
+    switch (error.code) {
+      case 'auth/invalid-email':
+        return 'El formato del correo electrónico es incorrecto.';
+      case 'auth/user-not-found':
+        return 'No existe un usuario con ese correo.';
+      case 'auth/wrong-password':
+        return 'La contraseña es incorrecta.';
+        case 'auth/invalid-credential':
+          return 'Correo o contraseña son incorrectas.';
+      default:
+        return 'Ocurrió un error inesperado. Por favor, inténtelo de nuevo.';
+    }
   }
 }
 
