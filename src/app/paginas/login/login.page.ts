@@ -21,7 +21,12 @@ export class LoginPage implements OnInit {
   isUsuarioSuccess: boolean = false;
   isContrasennaSuccess: boolean = false;
 
-  constructor(public mensaje:ToastController, public alert:AlertController, private router: Router, private storage: Storage, private InformacionusuarioService: InformacionusuarioService, private acces:FirebaseLoginService) {}
+  constructor(public mensaje:ToastController,
+              public alert:AlertController,
+              private router: Router,
+              private storage: Storage,
+              private InformacionusuarioService: InformacionusuarioService,
+              private acces:FirebaseLoginService) {}
 
 
   async ngOnInit() {
@@ -49,7 +54,7 @@ export class LoginPage implements OnInit {
     /*funciona al presionarlos*/
     mostrarAlerta() {
       this.checkInput();
-      if (this.Usuario == "" && this.Contrasenna == "") {
+      if (this.Usuario === "" && this.Contrasenna === "") {
         console.log("No puede dejar ni el usuario ni la contraseña sin completar")
         this.MensajeError()
       }
