@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { InformacionusuarioService } from 'src/app/servicios/informacionusuario.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FirebaseLoginService } from 'src/app/servicios/firebase-login.service';
@@ -17,7 +16,6 @@ export class AppComponent implements OnInit, OnDestroy {
   sessionSubscription: Subscription | undefined; // Maneja el ciclo de vida del intervalo
 
   constructor(
-    private informacionUsuarioService: InformacionusuarioService, 
     private router: Router, 
     public alerta: AlertController,
     private storage: Storage, 
@@ -67,7 +65,7 @@ export class AppComponent implements OnInit, OnDestroy {
     await this.storage.remove('nombre');
     await this.storage.remove('SessionID');
     await this.access.logout();
-    this.sessionActive = false; // Actualiza el estado de la sesión
+    this.sessionActive = false;
     this.router.navigate(['/login']);
   }
 

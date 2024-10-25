@@ -21,9 +21,6 @@ const routes: Routes = [
     loadChildren: () => import('./paginas/register/register.module').then( m => m.RegisterPageModule),canActivate:[AuthGuard]
   },
   {
-    path: 'animaciones',
-    loadChildren: () => import('./paginas/animaciones/animaciones.module').then( m => m.AnimacionesPageModule)
-  },  {
     path: 'perfil',
     loadChildren: () => import('./paginas/perfil/perfil.module').then( m => m.PerfilPageModule)
   },

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { FirebaseLoginService } from 'src/app/servicios/firebase-login.service';
-import { InformacionusuarioService } from 'src/app/servicios/informacionusuario.service';
 import { Storage } from '@ionic/storage-angular';
 
 @Component({
@@ -25,7 +24,6 @@ export class LoginPage implements OnInit {
     public alert: AlertController,
     private router: Router,
     private storage: Storage,
-    private InformacionusuarioService: InformacionusuarioService,
     private acces: FirebaseLoginService){}
 
 
@@ -64,7 +62,6 @@ export class LoginPage implements OnInit {
         this.storage.set("nombre", this.Usuario)
         this.storage.set("SessionID", true)
         console.log("inicio de sesion exitoso ")
-        this.InformacionusuarioService.setUsername(this.Usuario);
         this.redirigir();
       }).catch((error) => {
         this.MensajeError(this.traducirMensajeError(error));

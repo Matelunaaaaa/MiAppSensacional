@@ -11,13 +11,17 @@
     <ion-content>
       <ion-list>
 
-        <!-- Mostrar perfil solo si la sesión está activa -->
+        <!-- Mostrar solo si la sesión está activa -->
         <ion-item *ngIf="sessionActive">
           <ion-icon name="person" slot="start"></ion-icon>
           <ion-label routerLink="/perfil">Perfil</ion-label>
         </ion-item>
 
-        <!-- Mostrar el botón de cerrar sesión solo si la sesión está activa -->
+        <ion-item *ngIf="sessionActive">
+          <ion-icon name="calendar" slot="start"></ion-icon>
+          <ion-label routerLink="/historial">Historial</ion-label>
+        </ion-item>
+
         <ion-item *ngIf="sessionActive" (click)="CerrarSesion()">
           <ion-icon name="log-out" slot="start" class="cerrarSesion"></ion-icon>
           <ion-label class="cerrarSesion">Cerrar Sesión</ion-label>
@@ -29,18 +33,8 @@
           <ion-label routerLink="/login">Iniciar Sesión</ion-label>
         </ion-item>
 
-        <!-- Estos elementos se muestran siempre, independientemente del estado de la sesión -->
-        <ion-item>
-          <ion-icon name="pencil" slot="start"></ion-icon>
-          <ion-label>Apunte</ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-icon name="calendar" slot="start"></ion-icon>
-          <ion-label>Historial</ion-label>
-        </ion-item>
-
       </ion-list>
+      
     </ion-content>
 
   </ion-menu>

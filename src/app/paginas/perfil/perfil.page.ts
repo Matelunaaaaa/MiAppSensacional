@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { FirebaseLoginService } from 'src/app/servicios/firebase-login.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-perfil',
@@ -9,7 +11,10 @@ import { Storage } from '@ionic/storage-angular';
 export class PerfilPage implements OnInit {
   Usuario: string = '';
 
-  constructor(private storage: Storage,) { }
+  constructor(private storage: Storage,
+    private fireBaseLogin : FirebaseLoginService,
+    private angularFire : AngularFireAuth 
+  ) { }
 
   async ngOnInit() {
 

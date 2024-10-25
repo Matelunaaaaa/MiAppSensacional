@@ -52,7 +52,7 @@ export class RegisterPage implements OnInit {
     const alert = await this.alertController.create({
       header: header,
       message: message,
-      buttons: ['Aceptar'],
+      
     });
 
     await alert.present();
@@ -68,7 +68,7 @@ export class RegisterPage implements OnInit {
       this.redirigir();
     } catch (error) {
       console.log("Error al crear el usuario");
-      this.presentAlert('Error', 'Hubo un problema al crear la cuenta. Inténtalo de nuevo más tarde.');
+      this.MensajeIncorrecto();
     }
   }
 
@@ -80,13 +80,19 @@ export class RegisterPage implements OnInit {
     const alert = await this.alertController.create({
       header: '¡ÉXITO!',
       subHeader: 'Registro Exitoso',
-      message: 'Puedes Iniciar Sesión :-D',
-      buttons: [{
-        text: 'Dirigeme Allí',
-        handler: () => {
-          this.router.navigate(['/login']);  // Redirige a la página de login
-        }}]
+      message: '',
+      buttons: ['Aceptar'],
     });
     await alert.present();
     }
+
+    async MensajeIncorrecto() {
+      const alert = await this.alertController.create({
+        header: '¡ERROR!',
+        subHeader: 'Hubo un problema al crear la cuenta',
+        message: '',
+        buttons: ['Aceptar'],
+      });
+      await alert.present();
+      }
 }

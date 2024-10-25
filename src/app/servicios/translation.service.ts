@@ -25,7 +25,7 @@ export class TranslationService {
 
     return this.http.post<any>(this.apiUrl, body, { headers }).pipe(
       tap(response => {
-        console.log('Respuesta de la API:', response); // Imprimir la respuesta aquí
+        console.log('Respuesta de la API:', response);
       })
     );
   }
