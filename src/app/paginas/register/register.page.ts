@@ -24,7 +24,7 @@ export class RegisterPage implements OnInit {
 
   /* Aquí se ve si los campos están vacíos */
   checkInput() {
-    this.isGmailError = this.Gmail.trim() === '';
+    this.isGmailError = this.Gmail.trim() === '' || this.Gmail.includes('@');
     this.isGmailSuccess = !this.isGmailError;
     this.isUsuarioError = this.Usuario.trim() === '';
     this.isUsuarioSuccess = !this.isUsuarioError;
@@ -37,6 +37,16 @@ export class RegisterPage implements OnInit {
     this.checkInput();
 
     this.successMessage = ""; 
+
+    if(this.isGmailError){
+      await this.presentAlert('Error','Por favor, ingresa un correo electronico valido');
+      return;
+    }
+
+    if(this.Usuario === ""){
+      await this.presentAlert('Error','Por favor complete el campo de Usuario');
+      return;
+    }
 
     if (this.Contrasenna.length < 5) {
       await this.presentAlert('Error', 'La contraseña debe tener al menos 5 caracteres.');
