@@ -11,6 +11,9 @@ export const environment = {
     storageBucket:'miappsensacional.appspot.com', 
     messaginSenderId:'249122184741',
     appId:'1:249122184741:android:e28764c26ffcfa0a02e9cc'
+  },
+  deepLConfig: {
+    apiKey: '4a94e3fe-b83d-4e95-aef8-6e74303f1063:fx'
   }
 };
 

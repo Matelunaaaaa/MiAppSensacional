@@ -1,7 +1,13 @@
+// home.page.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslationService } from '../servicios/translation.service';
 import { firstValueFrom } from 'rxjs';
+
+// Define la interfaz de la respuesta de la API
+interface TranslationResponse {
+  translations: Array<{ text: string }>;
+}
 
 @Component({
   selector: 'app-home',
@@ -15,7 +21,7 @@ export class HomePage {
   translationHistory: string[] = []; // Historial de textos ingresados
 
   constructor(private translationService: TranslationService, private router: Router) {
-    this.loadHistory(); // Cargar el historial al iniciar
+    this.loadHistory();
   }
 
   // Método para traducir el texto
@@ -26,8 +32,15 @@ export class HomePage {
     }
 
     try {
-      const response = await firstValueFrom(this.translationService.translateText(text, targetLang));
-      this.translatedText = response.translatedText;
+      // Asegúrate de que la respuesta sea del tipo TranslationResponse
+      const response: TranslationResponse = await firstValueFrom(this.translationService.translateText(text, targetLang));
+
+      // Verificar y asignar la traducción
+      if (response && response.translations && Array.isArray(response.translations) && response.translations.length > 0) {
+        this.translatedText = response.translations[0].text;
+      } else {
+        alert('No se recibió la traducción esperada.');
+      }
 
       // Guardar el texto en el historial
       this.saveToHistory(text);
@@ -47,14 +60,9 @@ export class HomePage {
 
   // Cargar el historial guardado desde localStorage
   loadHistory() {
-    const storedHistory = localStorage.getItem('translationHistory');
-    if (storedHistory) {
-      this.translationHistory = JSON.parse(storedHistory);
+    const history = localStorage.getItem('translationHistory');
+    if (history) {
+      this.translationHistory = JSON.parse(history);
     }
-  }
-
-  // Método para navegar a la página del historial
-  navigateToHistorial() {
-    this.router.navigate(['/historial']);
   }
 }

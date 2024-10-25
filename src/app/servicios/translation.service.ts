@@ -1,32 +1,29 @@
+// translation.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+
+// Define la interfaz de la respuesta de la API
+interface TranslationResponse {
+  translations: Array<{ text: string }>;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class TranslationService {
+  private apiUrl = '/api/v2/translate';
 
-  private apiUrl = 'https://libretranslate.com/translate';
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  translateText(text: string, targetLang: string): Observable<any> {
-    const body = {
-      q: text,
-      source: 'auto', 
-      target: targetLang,
-      format: 'text'
-    };
-
+  translateText(text: string, targetLang: string): Observable<TranslationResponse> { // Asegúrate de que el método retorne el tipo Observable<TranslationResponse>
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Authorization': `DeepL-Auth-Key ${environment.deepLConfig.apiKey}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
     });
+    const body = `text=${encodeURIComponent(text)}&target_lang=${targetLang}`;
 
-    return this.http.post<any>(this.apiUrl, body, { headers }).pipe(
-      tap(response => {
-        console.log('Respuesta de la API:', response);
-      })
-    );
+    return this.http.post<TranslationResponse>(this.apiUrl, body, { headers }); // Asegúrate de que aquí se especifique el tipo
   }
 }
