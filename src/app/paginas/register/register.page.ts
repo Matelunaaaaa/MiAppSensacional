@@ -24,7 +24,7 @@ export class RegisterPage implements OnInit {
 
   /* Aquí se ve si los campos están vacíos */
   checkInput() {
-    this.isGmailError = this.Gmail.trim() === '' || this.Gmail.includes('@');
+    this.isGmailError = this.Gmail.trim() === '';
     this.isGmailSuccess = !this.isGmailError;
     this.isUsuarioError = this.Usuario.trim() === '';
     this.isUsuarioSuccess = !this.isUsuarioError;

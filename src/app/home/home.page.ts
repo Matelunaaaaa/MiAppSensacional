@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'; // Importar Router para la navegación
+import { Router } from '@angular/router';
 import { TranslationService } from '../servicios/translation.service';
 import { firstValueFrom } from 'rxjs';
 
@@ -32,7 +32,7 @@ export class HomePage {
       // Guardar el texto en el historial
       this.saveToHistory(text);
     } catch (error) {
-      console.error('Error al traducir:', error);
+      console.log('Error al traducir:', error);
       alert('Error al traducir: ' + error);
     }
   }

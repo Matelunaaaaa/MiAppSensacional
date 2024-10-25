@@ -9,7 +9,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-  Usuario: string = '';
+  Gmail: string = '';
 
   constructor(private storage: Storage,
     private fireBaseLogin : FirebaseLoginService,
@@ -18,7 +18,7 @@ export class PerfilPage implements OnInit {
 
   async ngOnInit() {
 
-    this.Usuario = await this.storage.get('nombre')
+    this.Gmail = await this.storage.get('nombre')
   }
 
 }
