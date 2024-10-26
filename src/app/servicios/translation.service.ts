@@ -19,7 +19,7 @@ export class TranslationService {
 
   translateText(text: string, targetLang: string): Observable<TranslationResponse> { // Asegúrate de que el método retorne el tipo Observable<TranslationResponse>
     const headers = new HttpHeaders({
-      'Authorization': `DeepL-Auth-Key ${environment.deepLConfig.apiKey}`,
+      'Authorization': `DeepL-Auth-Key ${environment}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     const body = `text=${encodeURIComponent(text)}&target_lang=${targetLang}`;
