@@ -10,14 +10,14 @@ import { Storage } from '@ionic/storage-angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  Usuario: string = "";
+  Gmail: string = "";
   Contrasenna: string = "";
   private _storage: Storage | null = null;
 
-  isUsuarioError: boolean = false;
+  isGmailError: boolean = false;
   isContrasennaError: boolean = false;
 
-  isUsuarioSuccess: boolean = false;
+  isGmailSuccess: boolean = false;
   isContrasennaSuccess: boolean = false;
 
   constructor(public mensaje: ToastController,
@@ -43,8 +43,8 @@ export class LoginPage implements OnInit {
 
   /*se ve que los campos no esten vacios*/
   checkInput() {
-    this.isUsuarioError = this.Usuario.trim() === '';
-    this.isUsuarioSuccess = !this.isUsuarioError;
+    this.isGmailError = this.Gmail.trim() === '';
+    this.isGmailSuccess = !this.isGmailError;
 
     this.isContrasennaError = this.Contrasenna.trim() === '';
     this.isContrasennaSuccess = !this.isContrasennaError;
@@ -53,14 +53,15 @@ export class LoginPage implements OnInit {
   /*funciona al presionarlos*/
   mostrarAlerta() {
     this.checkInput();
-    if (this.Usuario === "" && this.Contrasenna === "") {
+    if (this.Gmail === "" && this.Contrasenna === "") {
       console.log("No puede dejar ni el usuario ni la contraseña sin completar")
       this.MensajeError("Nombre o Contraseña erronea")
     }
     else {
-      this.acces.login(this.Usuario, this.Contrasenna).then(() => {
-        this.storage.set("nombre", this.Usuario)
+      this.acces.login(this.Gmail, this.Contrasenna).then(() => {
+        this.storage.set("gmail", this.Gmail)
         this.storage.set("SessionID", true)
+        this.storage.set("contrasenna", this.Contrasenna)
         console.log("inicio de sesion exitoso ")
         this.redirigir();
       }).catch((error) => {

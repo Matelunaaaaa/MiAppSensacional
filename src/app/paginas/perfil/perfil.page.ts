@@ -10,6 +10,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class PerfilPage implements OnInit {
   Gmail: string = '';
+  Contrasenna: string = '';
+  
 
   constructor(private storage: Storage,
     private fireBaseLogin : FirebaseLoginService,
@@ -18,7 +20,7 @@ export class PerfilPage implements OnInit {
 
   async ngOnInit() {
 
-    this.Gmail = await this.storage.get('nombre')
+    this.Gmail = await this.storage.get('gmail')
+    this.Contrasenna = await this.storage.get('contrasenna')
   }
-
 }

@@ -24,9 +24,9 @@
         Iniciar sesión
       </ion-card-title>
 
-      <ion-item [ngClass]="{'error-item': isUsuarioError, 'success-item': !isUsuarioError && Usuario.trim() !== ''}" style="--background: white;">
-        <ion-icon name="person" slot="start" style="color: black;"></ion-icon>
-        <ion-input style="color: black;" type="text" [(ngModel)]="Usuario" placeholder="Usuario"></ion-input>
+      <ion-item [ngClass]="{'error-item': isGmailError, 'success-item': !isGmailError && Gmail.trim() !== ''}" style="--background: white;">
+        <ion-icon name="mail" slot="start" style="color: black;"></ion-icon>
+        <ion-input style="color: black;" type="text" [(ngModel)]="Gmail" placeholder="Gmail"></ion-input>
       </ion-item>
 
       <ion-item [ngClass]="{'error-item': isContrasennaError, 'success-item': !isContrasennaError && Contrasenna.trim() !== ''}" style="--background: white;">
