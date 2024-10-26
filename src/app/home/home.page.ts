@@ -1,7 +1,7 @@
-// home.page.ts
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslationService } from '../servicios/translation.service';
+import { TranslationService } from 'src/app/servicios/translation.service';
+import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 import { firstValueFrom } from 'rxjs';
 
 // Define la interfaz de la respuesta de la API
@@ -19,9 +19,40 @@ export class HomePage {
   targetLang: string = 'auto';
   translatedText: string = '';
   translationHistory: string[] = []; // Historial de textos ingresados
+  myText: string = 'Hola Mundo!';
+  recording = false;
 
-  constructor(private translationService: TranslationService, private router: Router) {
+  constructor(
+    private translationService: TranslationService,
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
     this.loadHistory();
+    SpeechRecognition.requestPermissions();
+  }
+
+  async startRecognition() {
+    const { available } = await SpeechRecognition.available();
+
+    if (available) {
+      this.recording = true;
+      SpeechRecognition.start({
+        popup: false,
+        partialResults: true,
+        language: 'es-ES',
+      });
+
+      SpeechRecognition.addListener('partialResults', (data: any) => {
+        console.log('Resultados parciales', data.matches);
+        this.inputText = data.matches[0]; // Actualiza el texto de entrada con los resultados parciales
+        this.changeDetectorRef.detectChanges(); // Detecta cambios para actualizar la vista
+      });
+    }
+  }
+
+  async stopRecognition() {
+    this.recording = false;
+    await SpeechRecognition.stop();
   }
 
   // Método para traducir el texto

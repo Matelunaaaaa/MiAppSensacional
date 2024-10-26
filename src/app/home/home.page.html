@@ -33,6 +33,16 @@
           <ion-input [(ngModel)]="inputText"></ion-input>
         </ion-item>
 
+        <ion-button expand = "block" (click)="startRecognition()" *ngIf="!recording">
+          <ion-icon name="mic-outline" slot="start"></ion-icon>
+          Grabar voz
+        </ion-button>
+
+        <ion-button expand = "block" (click)="stopRecognition()" color="danger" *ngIf="recording">
+          <ion-icon name="stop-outline" slot="start"></ion-icon>
+          Detener grabación
+        </ion-button>
+
         <ion-item>
           <ion-label>Idioma</ion-label>
           <ion-select [(ngModel)]="targetLang">
