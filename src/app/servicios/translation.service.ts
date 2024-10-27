@@ -1,29 +1,24 @@
-// translation.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
-
-// Define la interfaz de la respuesta de la API
-interface TranslationResponse {
-  translations: Array<{ text: string }>;
-}
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TranslationService {
-  private apiUrl = '/api/v2/translate';
+  
+  private apiUrl = 'https://api.mymemory.translated.net/get';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  translateText(text: string, targetLang: string): Observable<TranslationResponse> { // Asegúrate de que el método retorne el tipo Observable<TranslationResponse>
-    const headers = new HttpHeaders({
-      'Authorization': `DeepL-Auth-Key ${environment}`,
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    const body = `text=${encodeURIComponent(text)}&target_lang=${targetLang}`;
-
-    return this.http.post<TranslationResponse>(this.apiUrl, body, { headers }); // Asegúrate de que aquí se especifique el tipo
+  translateText(text: string, targetLang: string): Observable<any> {
+    const url = `${this.apiUrl}?q=${encodeURIComponent(text)}&langpair=es|${targetLang}`;
+    
+    return this.http.get<any>(url).pipe(
+      tap(response => {
+        console.log('Respuesta completa de la API:', response);
+        console.log('Texto traducido:', response.responseData.translatedText);
+      })
+    );
   }
 }

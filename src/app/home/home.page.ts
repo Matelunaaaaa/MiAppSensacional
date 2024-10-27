@@ -16,7 +16,7 @@ interface TranslationResponse {
 })
 export class HomePage {
   inputText: string = '';
-  targetLang: string = 'auto';
+  targetLang: string = 'en';
   translatedText: string = '';
   translationHistory: string[] = []; // Historial de textos ingresados
   myText: string = 'Hola Mundo!';
