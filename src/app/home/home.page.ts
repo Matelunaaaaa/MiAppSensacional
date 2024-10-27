@@ -5,7 +5,7 @@ import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 import { firstValueFrom } from 'rxjs';
 
 // Define la interfaz de la respuesta de la API
-interface TranslationResponse {
+interface TranslationResponse1 {
   translations: Array<{ text: string }>;
 }
 
@@ -21,6 +21,7 @@ export class HomePage {
   translationHistory: string[] = []; // Historial de textos ingresados
   myText: string = 'Hola Mundo!';
   recording = false;
+
 
   constructor(
     private translationService: TranslationService,
@@ -61,25 +62,17 @@ export class HomePage {
       alert('Por favor, ingrese un texto para traducir.');
       return;
     }
-
+  
     try {
-      // Asegúrate de que la respuesta sea del tipo TranslationResponse
-      const response: TranslationResponse = await firstValueFrom(this.translationService.translateText(text, targetLang));
-
-      // Verificar y asignar la traducción
-      if (response && response.translations && Array.isArray(response.translations) && response.translations.length > 0) {
-        this.translatedText = response.translations[0].text;
-      } else {
-        alert('No se recibió la traducción esperada.');
-      }
-
-      // Guardar el texto en el historial
-      this.saveToHistory(text);
+      // Asegúrate de que la respuesta sea un string
+      this.translatedText = await firstValueFrom(this.translationService.translateText(text, targetLang));
+      
     } catch (error) {
-      console.log('Error al traducir:', error);
-      alert('Error al traducir: ' + error);
+      console.error('Error al traducir:', error);
+      alert('Ocurrió un error al traducir el texto.');
     }
   }
+  
 
   // Método para guardar el texto ingresado en el historial
   saveToHistory(text: string) {

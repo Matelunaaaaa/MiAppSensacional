@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
+
+export interface TranslationResponse {
+  responseData: {
+    translatedText: string;
+  };
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +17,15 @@ export class TranslationService {
 
   constructor(private http: HttpClient) { }
 
-  translateText(text: string, targetLang: string): Observable<any> {
+  translateText(text: string, targetLang: string): Observable<string> {
     const url = `${this.apiUrl}?q=${encodeURIComponent(text)}&langpair=es|${targetLang}`;
     
-    return this.http.get<any>(url).pipe(
-      tap(response => {
+    return this.http.get<TranslationResponse>(url).pipe(
+      map(response => {
         console.log('Respuesta completa de la API:', response);
-        console.log('Texto traducido:', response.responseData.translatedText);
+        const translatedText = response.responseData.translatedText;
+        console.log('Texto traducido:', translatedText);
+        return translatedText; 
       })
     );
   }
