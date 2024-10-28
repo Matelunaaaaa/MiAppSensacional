@@ -87,6 +87,9 @@ export class HomePage {
 
       // Realizar la traducción
       this.translatedText = await firstValueFrom(this.translationService.translateText(text, targetLang));
+
+      this.saveToHistory(this.translatedText);
+
     } catch (error) {
       console.error('Error al traducir o guardar el idioma:', error);
       alert('Ocurrió un error al traducir el texto.');
