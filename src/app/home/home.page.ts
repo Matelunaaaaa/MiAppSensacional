@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TranslationService } from 'src/app/servicios/translation.service';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 import { firstValueFrom } from 'rxjs';
+import { getFirestore, doc, updateDoc } from 'firebase/firestore';
 
 // Define la interfaz de la respuesta de la API
 interface TranslationResponse1 {
@@ -21,7 +22,7 @@ export class HomePage {
   translationHistory: string[] = []; // Historial de textos ingresados
   myText: string = 'Hola Mundo!';
   recording = false;
-
+  db = getFirestore();
 
   constructor(
     private translationService: TranslationService,
@@ -31,6 +32,8 @@ export class HomePage {
     this.loadHistory();
     SpeechRecognition.requestPermissions();
   }
+
+  
 
   async startRecognition() {
     const { available } = await SpeechRecognition.available();
@@ -61,11 +64,9 @@ export class HomePage {
     if (!text || text.trim() === '') {
       alert('Por favor, ingrese un texto para traducir.');
       return;
-    }
-  
-    try {
-      // Asegúrate de que la respuesta sea un string
+    }try {
       this.translatedText = await firstValueFrom(this.translationService.translateText(text, targetLang));
+      
       
     } catch (error) {
       console.error('Error al traducir:', error);

@@ -21,6 +21,11 @@
       </ion-card-header>
 
       <ion-card-content>
+
+          <ion-item *ngIf="userName" lines="none" style="--background: transparent; color: white;">
+            <ion-label><strong>Nombre:</strong></ion-label>
+            <ion-label>{{ userName }}</ion-label>
+          </ion-item>
       
         <ion-item lines="none" style="--background: transparent; color: white;">
           <ion-label><strong>Correo:</strong></ion-label>
@@ -31,6 +36,11 @@
           <ion-label><strong>Contraseña:</strong></ion-label>
           <ion-label>{{ Contrasenna }}</ion-label>
         </ion-item>
+
+        <ion-item *ngIf="userIdioma" lines="none" style="--background: transparent; color: white;">
+          <ion-label><strong>Ultimo idioma seleccionado:</strong></ion-label>
+          <ion-label> {{userIdioma}} </ion-label>
+        </ion-item> 
 
       </ion-card-content>
     </ion-card>
