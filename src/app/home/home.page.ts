@@ -15,8 +15,9 @@ export class HomePage {
   inputText: string = '';
   targetLang: string = 'en';
   translatedText: string = '';
-  translationHistory: { input: string; translation: string }[] = []; // Asegúrate de que este sea el tipo correcto
+  translationHistory: { input: string; translation: string; idioma: string }[] = [];
   recording = false;
+  idiomadetraduccion: string = '';
   db = getFirestore();
 
   constructor(
@@ -41,8 +42,8 @@ export class HomePage {
 
       SpeechRecognition.addListener('partialResults', (data: any) => {
         console.log('Resultados parciales', data.matches);
-        this.inputText = data.matches[0]; // Actualiza el texto de entrada con los resultados parciales
-        this.changeDetectorRef.detectChanges(); // Detecta cambios para actualizar la vista
+        this.inputText = data.matches[0];
+        this.changeDetectorRef.detectChanges();
       });
     }
   }
@@ -74,18 +75,18 @@ export class HomePage {
       if (user) {
         const userDocRef = doc(this.db, 'users', user.uid);
         const languageToSave = languageNames[targetLang];
-        await updateDoc(userDocRef, {
-          idioma: languageToSave
-        });
+        await updateDoc(userDocRef, { idioma: languageToSave });
         console.log('Idioma guardado en Firestore:', languageToSave);
       } else {
         console.log('No hay usuario autenticado');
       }
 
       this.translatedText = await firstValueFrom(this.translationService.translateText(text, targetLang));
+      this.idiomadetraduccion = languageNames[targetLang];
+      localStorage.setItem('idiomadetraduccion', this.idiomadetraduccion);
 
-      // Agregar al historial
-      this.saveToHistory(this.inputText, this.translatedText);
+      // Llama a saveToHistory con el idioma específico
+      this.saveToHistory(this.inputText, this.translatedText, this.idiomadetraduccion);
 
     } catch (error) {
       console.error('Error al traducir o guardar el idioma:', error);
@@ -93,15 +94,11 @@ export class HomePage {
     }
   }
 
-  // Método para guardar el texto ingresado en el historial
-  saveToHistory(input: string, translation: string) {
-    console.log('Input:', input); // Para verificar el valor de input
-    console.log('Translation:', translation); // Para verificar el valor de translation
-
-    // Solo se evalúan si no son vacíos
+  // Método para guardar el texto ingresado en el historial, incluyendo el idioma
+  saveToHistory(input: string, translation: string, idioma: string) {
     if (input && translation) {
-      this.translationHistory.push({ input, translation }); // Asegúrate de que esto se ejecute
-      localStorage.setItem('translationHistory', JSON.stringify(this.translationHistory)); // Guardar en localStorage
+      this.translationHistory.push({ input, translation, idioma });
+      localStorage.setItem('translationHistory', JSON.stringify(this.translationHistory));
     } else {
       console.warn('Input o translation está vacío, no se guardará en el historial.');
     }

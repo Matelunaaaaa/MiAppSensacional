@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./historial.page.scss'],
 })
 export class HistorialPage implements OnInit {
-  translationHistory: { input: string; translation: string }[] = [];
+  translationHistory: { input: string; translation: string; idioma: string }[] = [];
+  idiomaGuardado: string = '';
 
   ngOnInit() {
     this.loadHistory();
+    this.idiomaGuardado = localStorage.getItem('idiomadetraduccion') || '';
   }
 
   loadHistory() {
