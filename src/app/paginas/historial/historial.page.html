@@ -10,7 +10,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <!-- traducciones -->
+  <ion-card *ngIf="translationHistory.length > 0">
     <ion-card-header>
       <ion-card-title>Historial</ion-card-title>
     </ion-card-header>
@@ -25,6 +26,13 @@
           </ion-label>
         </ion-item>
       </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- si no hay traducciones -->
+  <ion-card *ngIf="translationHistory.length === 0">
+    <ion-card-content>
+      <p style="text-align: center; color: gray;">No hay traducciones en el historial.</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
