@@ -15,8 +15,7 @@ export class HomePage {
   inputText: string = '';
   targetLang: string = 'en';
   translatedText: string = '';
-  translationHistory: string[] = []; // Historial de textos ingresados
-  myText: string = 'Hola Mundo!';
+  translationHistory: { input: string; translation: string }[] = []; // Asegúrate de que este sea el tipo correcto
   recording = false;
   db = getFirestore();
 
@@ -53,14 +52,12 @@ export class HomePage {
     await SpeechRecognition.stop();
   }
 
-  // Método para traducir el texto y guardar el idioma en Firestore
   async translate(text: string, targetLang: string) {
     if (!text || text.trim() === '') {
       alert('Por favor, ingrese un texto para traducir.');
       return;
     }
-    
-    // Guardar el idioma en Firestore solo si el usuario está autenticado
+
     try {
       const languageNames: { [key: string]: string } = {
         en: 'Inglés',
@@ -85,10 +82,10 @@ export class HomePage {
         console.log('No hay usuario autenticado');
       }
 
-      // Realizar la traducción
       this.translatedText = await firstValueFrom(this.translationService.translateText(text, targetLang));
 
-      this.saveToHistory(this.translatedText);
+      // Agregar al historial
+      this.saveToHistory(this.inputText, this.translatedText);
 
     } catch (error) {
       console.error('Error al traducir o guardar el idioma:', error);
@@ -97,10 +94,16 @@ export class HomePage {
   }
 
   // Método para guardar el texto ingresado en el historial
-  saveToHistory(text: string) {
-    if (text.trim()) {
-      this.translationHistory.push(text);
+  saveToHistory(input: string, translation: string) {
+    console.log('Input:', input); // Para verificar el valor de input
+    console.log('Translation:', translation); // Para verificar el valor de translation
+
+    // Solo se evalúan si no son vacíos
+    if (input && translation) {
+      this.translationHistory.push({ input, translation }); // Asegúrate de que esto se ejecute
       localStorage.setItem('translationHistory', JSON.stringify(this.translationHistory)); // Guardar en localStorage
+    } else {
+      console.warn('Input o translation está vacío, no se guardará en el historial.');
     }
   }
 

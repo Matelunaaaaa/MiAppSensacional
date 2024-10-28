@@ -10,15 +10,19 @@
 </ion-header>
 
 <ion-content>
-  <!-- Lista de textos guardados en el historial -->
   <ion-card>
     <ion-card-header>
       <ion-card-title>Historial</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item *ngFor="let text of translationHistory">
-          {{ text }}
+        <ion-item *ngFor="let item of translationHistory">
+          <ion-label>
+            <h2></h2>
+            <p>{{ item.input }}</p>
+            <h2>Traducción:</h2>
+            <p>{{ item.translation }}</p>
+          </ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>

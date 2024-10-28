@@ -1,22 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-historial',
   templateUrl: './historial.page.html',
   styleUrls: ['./historial.page.scss'],
 })
-export class HistorialPage {
-  translationHistory: string[] = [];
+export class HistorialPage implements OnInit {
+  translationHistory: { input: string; translation: string }[] = [];
 
-  constructor() {
+  ngOnInit() {
     this.loadHistory();
   }
 
-  // Cargar el historial desde localStorage
   loadHistory() {
-    const storedHistory = localStorage.getItem('translationHistory');
-    if (storedHistory) {
-      this.translationHistory = JSON.parse(storedHistory);
+    const history = localStorage.getItem('translationHistory');
+    if (history) {
+      this.translationHistory = JSON.parse(history);
     }
   }
 }
