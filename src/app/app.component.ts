@@ -69,9 +69,9 @@ export class AppComponent implements OnInit, OnDestroy {
   async cerrarSesion() {
     localStorage.removeItem('email');
     localStorage.removeItem('contrasenna');
-    await this.storage.remove('SessionID');
     localStorage.removeItem('translationHistory');
     localStorage.removeItem('idiomadetraduccion');
+    await this.storage.remove('SessionID');
     await this.access.logout();
     this.sessionActive = false;
     this.router.navigate(['/login']);
