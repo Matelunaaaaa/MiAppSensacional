@@ -75,10 +75,6 @@ export class LoginPage implements OnInit {
     this.router.navigate(['home']);
   }
 
-  async guardarUsuario(usuario: string) {
-    await this._storage?.set('usuario', usuario);
-  }
-
 
 
   traducirMensajeError(error: any): string {
