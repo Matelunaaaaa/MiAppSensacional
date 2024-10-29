@@ -59,6 +59,11 @@ export class HomePage {
       return;
     }
 
+    if(!navigator.onLine) {
+      alert('No hay conexión a internet. Por favor, conéctese a una red para traducir el texto.');
+      return;
+    }
+
     try {
       const languageNames: { [key: string]: string } = {
         en: 'Inglés',
@@ -80,12 +85,9 @@ export class HomePage {
       } else {
         console.log('No hay usuario autenticado');
       }
-
       this.translatedText = await firstValueFrom(this.translationService.translateText(text, targetLang));
       this.idiomadetraduccion = languageNames[targetLang];
       localStorage.setItem('idiomadetraduccion', this.idiomadetraduccion);
-
-      // Llama a saveToHistory con el idioma específico
       this.saveToHistory(this.inputText, this.translatedText, this.idiomadetraduccion);
 
     } catch (error) {
