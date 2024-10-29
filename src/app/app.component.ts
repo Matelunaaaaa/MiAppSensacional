@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.checkSession();
 
     this.sessionSubscription = interval(1000).subscribe(() => {
-      this.checkSession(); // Revisa el estado de la sesión periódicamente
+      this.checkSession();
     });
   }
 
@@ -64,6 +64,8 @@ export class AppComponent implements OnInit, OnDestroy {
   async cerrarSesion() {
     await this.storage.remove('nombre');
     await this.storage.remove('SessionID');
+    localStorage.removeItem('translationHistory');
+    localStorage.removeItem('idiomadetraduccion');
     await this.access.logout();
     this.sessionActive = false;
     this.router.navigate(['/login']);
