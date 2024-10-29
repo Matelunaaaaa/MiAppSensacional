@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FirebaseLoginService } from 'src/app/servicios/firebase-login.service';
 import { Storage } from '@ionic/storage-angular';
@@ -13,7 +13,8 @@ import { Subscription, interval } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   Usuario: string = ''; 
   sessionActive: boolean = false;
-  sessionSubscription: Subscription | undefined; // Maneja el ciclo de vida del intervalo
+  sessionSubscription: Subscription | undefined; 
+  mostrarMenu: boolean = true;
 
   constructor(
     private router: Router, 
@@ -26,18 +27,22 @@ export class AppComponent implements OnInit, OnDestroy {
     await this.storage.create();
     this.checkSession();
 
+    // Intervalo para revisar la sesión cada segundo
     this.sessionSubscription = interval(1000).subscribe(() => {
       this.checkSession();
+    });
+
+    // Escucha los eventos del router y verifica la ruta actual
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        this.comprobarRuta(event.url);
+      }
     });
   }
 
   async checkSession() {
     const SessionID = await this.storage.get('SessionID');
-    if(SessionID) {
-      this.sessionActive = true;
-    } else {
-      this.sessionActive = false;
-    }
+    this.sessionActive = !!SessionID;
   }
 
   async CerrarSesion() {
@@ -71,7 +76,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  // Cancela la suscripción del intervalo cuando se destruye el componente
+  comprobarRuta(url: string) {
+    // Oculta el menú en las páginas de login y registro
+    this.mostrarMenu = !(url === '/login' || url === '/registro');
+  }
+
   ngOnDestroy() {
     if (this.sessionSubscription) {
       this.sessionSubscription.unsubscribe();
