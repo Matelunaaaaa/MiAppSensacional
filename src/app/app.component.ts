@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { FirebaseLoginService } from 'src/app/servicios/firebase-login.service';
 import { Storage } from '@ionic/storage-angular';
 import { Subscription, interval } from 'rxjs';
@@ -13,29 +13,29 @@ import { Subscription, interval } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   Usuario: string = ''; 
   sessionActive: boolean = false;
-  sessionSubscription: Subscription | undefined; 
-  mostrarMenu: boolean = true;
+  sessionSubscription: Subscription | undefined;
 
   constructor(
     private router: Router, 
     public alerta: AlertController,
     private storage: Storage, 
-    private access: FirebaseLoginService
+    private access: FirebaseLoginService,
+    private menuCtrl: MenuController // Controlador del menú
   ) {}
 
   async ngOnInit() {
     await this.storage.create();
     this.checkSession();
 
-    // Intervalo para revisar la sesión cada segundo
+    // Intervalo para verificar la sesión
     this.sessionSubscription = interval(1000).subscribe(() => {
       this.checkSession();
     });
 
-    // Escucha los eventos del router y verifica la ruta actual
+    // Cerrar el menú al navegar a una nueva vista
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        this.comprobarRuta(event.url);
+        this.menuCtrl.close(); // Cierra el menú al cambiar de vista
       }
     });
   }
@@ -67,18 +67,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   async cerrarSesion() {
-    await this.storage.remove('nombre');
+    localStorage.removeItem('email');
+    localStorage.removeItem('contrasenna');
     await this.storage.remove('SessionID');
     localStorage.removeItem('translationHistory');
     localStorage.removeItem('idiomadetraduccion');
     await this.access.logout();
     this.sessionActive = false;
     this.router.navigate(['/login']);
-  }
-
-  comprobarRuta(url: string) {
-    // Oculta el menú en las páginas de login y registro
-    this.mostrarMenu = !(url === '/login' || url === '/registro');
   }
 
   ngOnDestroy() {
