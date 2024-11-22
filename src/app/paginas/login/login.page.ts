@@ -62,8 +62,9 @@ export class LoginPage implements OnInit {
       this.acces.login(this.Gmail, this.Contrasenna).then(() => {
         this.storage.set("gmail", this.Gmail)
         this.storage.set("SessionID", true)
-        this.storage.set("contrasenna", this.Contrasenna)
         console.log("inicio de sesion exitoso ")
+        this.Gmail = "";
+        this.Contrasenna = "";
         this.redirigir();
       }).catch((error) => {
         this.MensajeError(this.traducirMensajeError(error));
