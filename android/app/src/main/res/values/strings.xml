@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">TranslateBKX</string>
-    <string name="title_activity_main">TranslateBKX</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">TranslateBK</string>
+    <string name="title_activity_main">TranslateBK</string>
+    <string name="package_name">proyecto.transalate.bk</string>
+    <string name="custom_url_scheme">proyecto.transalate.bk</string>
 </resources>

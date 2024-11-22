@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package proyecto.transalate.bk;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -23,7 +23,6 @@ export class PerfilPage implements OnInit {
   async ngOnInit() {
 
     this.Gmail = await this.storage.get('gmail')
-    this.Contrasenna = await this.storage.get('contrasenna')
     this.fireBaseLogin.getCurrentUserName().subscribe((name) => {
       this.userName = name;
     });
